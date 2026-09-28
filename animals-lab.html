@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر افتراضي: كيف نصنّف الحيوانات؟</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eaf3f8;--card:#fff;--ink:#17323f;--mute:#557383;--sky:#2b7ba5;--green:#7fae2f;--sun:#f2c12e;--line:#c9dce7;--ok:#1f7a4a;--okbg:#dff3e6;--bad:#b3261e;--badbg:#fbe3e0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1f28;--card:#172b36;--ink:#e6f1f6;--mute:#93b0bf;--line:#2c4655;--sky:#5db4e0;--ok:#6fd39b;--okbg:#17392a;--bad:#f28b82;--badbg:#3f1f1d}}
+:root[data-theme="dark"]{--bg:#0f1f28;--card:#172b36;--ink:#e6f1f6;--mute:#93b0bf;--line:#2c4655;--sky:#5db4e0;--ok:#6fd39b;--okbg:#17392a;--bad:#f28b82;--badbg:#3f1f1d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Tajawal',Tahoma,'Segoe UI',sans-serif;line-height:1.75;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:14px}
+header{background:var(--sky);color:#fff;border-radius:14px 14px 14px 0;padding:14px 16px;border-inline-start:8px solid var(--sun)}
+header small{opacity:.9}header h1{margin:2px 0 0;font-size:20px;font-weight:800}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:14px;padding:14px}
+h2{margin:0 0 6px;font-size:17px;font-weight:800;display:flex;gap:8px;align-items:center}
+h2 b{background:var(--sky);color:#fff;border-radius:50%;width:26px;height:26px;display:inline-grid;place-items:center;font-size:14px;flex:none}
+p{margin:4px 0}
+.tray{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;min-height:8px}
+.chip{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:4px 10px;font:inherit;cursor:pointer;display:flex;gap:6px;align-items:center;min-height:44px}
+.chip[aria-pressed=true]{border-color:var(--sky);background:var(--sky);color:#fff}
+.chip.ok{border-color:var(--ok);background:var(--okbg);color:var(--ink)}
+.chip.bad{border-color:var(--bad);background:var(--badbg);color:var(--ink)}
+.em{font-size:24px;line-height:1}
+.tag{font-size:13px;color:var(--mute);margin-top:6px}
+.grp{border:2px dashed var(--line);border-radius:10px;padding:6px 10px;margin-top:8px;cursor:pointer;min-height:64px}
+.grp b{color:var(--sky)}
+.grp:hover{border-color:var(--sky)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+button.b{border:0;background:var(--green);color:#0d2200;font:inherit;font-weight:700;border-radius:10px;padding:8px 14px;cursor:pointer;min-height:44px}
+button.b.g{background:var(--line);color:var(--ink)}
+.note{background:var(--bg);border-inline-start:5px solid var(--green);border-radius:8px;padding:8px 10px;margin-top:8px}
+.ans{color:var(--ok);font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:15px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:right;vertical-align:top}
+th{background:var(--bg)}
+details{border:1px solid var(--line);border-radius:10px;margin-top:8px;padding:6px 10px}
+summary{cursor:pointer;font-weight:700;min-height:32px}
+</style>
+</head>
+<body>
+<main>
+<header><small>أستكشف · نشاط استقصائي</small><h1>كيف يمكن أن نصنّف الحيوانات؟</h1></header>
+
+<section>
+<h2><b>١</b>أصنّف</h2>
+<p>انظر إلى صور الحيوانات، وضعها في مجموعات، ثم بيّن كيف صنّفتها. اختر أولاً <b>صفة التصنيف</b>.</p>
+<div id="lab1"></div>
+</section>
+
+<section>
+<h2><b>٢</b>أتحدث إلى زميلي</h2>
+<p>ما المجموعات التي صنّف زميلي فيها الحيوانات؟</p>
+<div class="row"><button class="b" id="peer">اسأل زميلي</button></div>
+<div id="peerout" class="note">اضغط «اسأل زميلي» لترى تصنيفه.</div>
+</section>
+
+<section>
+<h2><b>٣</b>أقارن</h2>
+<p>فيم تتشابه مجموعاتي ومجموعات زميلي، وفيم تختلف؟</p>
+<div id="cmp" class="note">اسأل زميلك أولاً في الخطوة ٢.</div>
+</section>
+
+<section>
+<h2><b>٤</b>أستكشف أكثر: أصنّف حيوانات اليابسة</h2>
+<p>فكّر في الحيوانات التي تعيش على اليابسة. كيف يمكن أن تصنّفها؟</p>
+<div id="lab2"></div>
+</section>
+
+<section>
+<h2>الإجابات النموذجية</h2>
+<details><summary>أصنّف: كيف صنّفت الحيوانات؟</summary>
+<p class="ans">نصنّف الحيوانات حسب صفات نلاحظها. مثلاً حسب مكان العيش: الأرنب والهدهد والذبابة والأفعى ووحيد القرن على اليابسة، والسمكة في الماء، والضفدع في الماء وعلى اليابسة. وحسب عدد الأرجل: الأفعى والسمكة بلا أرجل، والأرنب والضفدع ووحيد القرن لها أربع أرجل، والهدهد له رجلان، والذبابة لها ست أرجل. وحسب العمود الفقري: كلها فقاريات ما عدا الذبابة. وحسب الطيران: الهدهد والذبابة تطيران والباقي لا يطير.</p></details>
+<details><summary>أتحدث إلى زميلي: ما المجموعات التي صنّف فيها؟</summary>
+<p class="ans">قد يصنّف زميلي حسب صفة مختلفة عني، مثل مكان العيش أو الطيران أو عدد الأرجل. كل تصنيف صحيح ما دام مبنياً على صفة واضحة يمكن ملاحظتها.</p></details>
+<details><summary>أقارن: فيم تتشابه وفيم تختلف؟</summary>
+<p class="ans">التشابه: كلانا استخدم صفة يمكن ملاحظتها لتكوين المجموعات، وقد تجتمع بعض الحيوانات نفسها في مجموعة واحدة. الاختلاف: قد نختلف في الصفة المستخدمة وفي عدد المجموعات وفي الحيوانات التي تجتمع معاً.</p></details>
+<details><summary>أصنّف: حيوانات اليابسة</summary>
+<p class="ans">يمكن تصنيفها حسب الغطاء الخارجي (شعر، ريش، حراشف، جلد، هيكل خارجي)، أو حسب عدد الأرجل، أو حسب القدرة على الطيران، أو حسب وجود العمود الفقري.</p></details>
+</section>
+</main>
+
+<script>
+const A={ar:{n:'أرنب',e:'🐇'},fr:{n:'ضفدع',e:'🐸'},hd:{n:'هدهد',e:'🐦'},fl:{n:'ذبابة',e:'🪰'},sn:{n:'أفعى',e:'🐍'},fi:{n:'سمكة',e:'🐟'},rh:{n:'وحيد القرن',e:'🦏'}};
+const C={
+hab:{t:'مكان العيش',g:{'تعيش على اليابسة':['ar','hd','fl','sn','rh'],'تعيش في الماء':['fi'],'تعيش في الماء وعلى اليابسة':['fr']}},
+legs:{t:'عدد الأرجل',g:{'بلا أرجل':['sn','fi'],'أربع أرجل':['ar','fr','rh'],'رجلان':['hd'],'ست أرجل':['fl']}},
+back:{t:'العمود الفقري',g:{'فقاريات':['ar','fr','hd','sn','fi','rh'],'لافقاريات':['fl']}},
+fly:{t:'الطيران',g:{'تطير':['hd','fl'],'لا تطير':['ar','fr','sn','fi','rh']}},
+cov:{t:'الغطاء الخارجي',g:{'شعر':['ar'],'ريش':['hd'],'حراشف':['sn','fi'],'جلد':['fr','rh'],'هيكل خارجي':['fl']}}};
+const ALL=Object.keys(A);
+const gof=(k,id)=>Object.entries(C[k].g).find(([n,l])=>l.includes(id))[0];
+const chipE=id=>`<span class="em">${A[id].e}</span>${A[id].n}`;
+function lab(root,ids,keys){
+ const st={k:keys[0],pl:{},sel:null,chk:false,msg:''};
+ const gs=()=>Object.entries(C[st.k].g).map(([n,l])=>[n,l.filter(x=>ids.includes(x))]).filter(x=>x[1].length);
+ function draw(){
+  let h='<div class="tray">'+keys.map(k=>`<button class="chip" data-k="${k}" aria-pressed="${k==st.k}">${C[k].t}</button>`).join('')+'</div>';
+  h+='<div class="tag">اختر حيواناً ثم اضغط المجموعة المناسبة:</div><div class="tray">'+ids.filter(i=>!st.pl[i]).map(i=>`<button class="chip" data-a="${i}" aria-pressed="${st.sel==i}">${chipE(i)}</button>`).join('')+'</div>';
+  h+=gs().map(([n])=>`<div class="grp" data-g="${n}" tabindex="0" role="button" aria-label="${n}"><b>${n}</b><div class="tray">`+ids.filter(i=>st.pl[i]===n).map(i=>`<button class="chip ${st.chk?(gof(st.k,i)===n?'ok':'bad'):''}" data-back="${i}">${chipE(i)}${st.chk?(gof(st.k,i)===n?' ✓':' ✗'):''}</button>`).join('')+'</div></div>').join('');
+  h+='<div class="row"><button class="b" data-act="chk">تحقق من تصنيفي</button><button class="b g" data-act="rst">أعد المحاولة</button></div>';
+  if(st.msg)h+=`<div class="note" aria-live="polite">${st.msg}</div>`;
+  root.innerHTML=h;}
+ root.addEventListener('click',e=>{
+  const t=e.target;let x;
+  if(x=t.closest('[data-back]')){if(!st.chk){delete st.pl[x.dataset.back]}}
+  else if(x=t.closest('[data-k]')){st.k=x.dataset.k;st.pl={};st.sel=null;st.chk=false;st.msg='';window.onK&&window.onK(root.id,st.k)}
+  else if(x=t.closest('[data-a]')){st.sel=x.dataset.a}
+  else if(x=t.closest('[data-g]')){if(st.sel){st.pl[st.sel]=x.dataset.g;st.sel=null;st.chk=false;st.msg=''}}
+  else if(x=t.closest('[data-act]')){
+   if(x.dataset.act==='rst'){st.pl={};st.sel=null;st.chk=false;st.msg=''}
+   else{const n=ids.filter(i=>st.pl[i]).length;
+    if(n<ids.length)st.msg='ضع كل الحيوانات في مجموعات أولاً.';
+    else{st.chk=true;const ok=ids.filter(i=>gof(st.k,i)===st.pl[i]).length;
+     st.msg=ok===ids.length?`<span class="ans">أحسنت! صنّفت الحيوانات حسب «${C[st.k].t}» تصنيفاً صحيحاً.</span>`:`أصبت في ${ok} من ${ids.length}. راجع الحيوانات المعلّمة بـ ✗ وانقلها إلى مجموعتها.`}}}
+  draw();});
+ root.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.grp')){e.preventDefault();e.target.click()}});
+ draw();return{k:()=>st.k};
+}
+const L1=lab(document.getElementById('lab1'),ALL,['hab','legs','back','fly']);
+lab(document.getElementById('lab2'),['ar','hd','fl','sn','rh'],['cov','legs','fly','back']);
+const keys=['hab','legs','back','fly'];let peerK=null;
+const table=k=>'<table><thead><tr><th>المجموعة</th><th>الحيوانات</th></tr></thead><tbody>'+Object.entries(C[k].g).map(([n,l])=>`<tr><td>${n}</td><td>${l.map(i=>A[i].e+' '+A[i].n).join('، ')}</td></tr>`).join('')+'</tbody></table>';
+function compare(){
+ const me=L1.k();if(!peerK)return;
+ if(peerK===me){peerK=keys[(keys.indexOf(me)+1)%keys.length];showPeer();return}
+ const same=[];
+ for(let a=0;a<ALL.length;a++)for(let b=a+1;b<ALL.length;b++){const x=ALL[a],y=ALL[b];if(gof(me,x)===gof(me,y)&&gof(peerK,x)===gof(peerK,y))same.push(A[x].n+' و'+A[y].n)}
+ document.getElementById('cmp').innerHTML=`<b>تصنيفي:</b> حسب ${C[me].t} (${Object.keys(C[me].g).length} مجموعات)<br><b>تصنيف زميلي:</b> حسب ${C[peerK].t} (${Object.keys(C[peerK].g).length} مجموعات)<br><span class="ans">التشابه:</span> كلانا استخدم صفة يمكن ملاحظتها. ${same.length?'وتجتمع معاً في تصنيفينا: '+same.join('، ')+'.':'ولا تجتمع أي حيوانات معاً في المجموعة نفسها في التصنيفين.'}<br><span class="ans">الاختلاف:</span> اختلفت الصفة المستخدمة وعدد المجموعات، وتغيّر ما يجتمع مع ما في المجموعة نفسها.`;
+}
+function showPeer(){document.getElementById('peerout').innerHTML=`<b>صنّف زميلي الحيوانات حسب: ${C[peerK].t}</b>`+table(peerK);compare()}
+document.getElementById('peer').onclick=()=>{const me=L1.k();const o=keys.filter(k=>k!==me);peerK=o[Math.floor(Math.random()*o.length)];showPeer()};
+window.onK=(id)=>{if(id==='lab1')compare()};
+</script>
+</body>
+</html>
